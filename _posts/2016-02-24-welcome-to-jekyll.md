@@ -25,7 +25,7 @@ print_hi('Tom')
 Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll's GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
 
 
-```nu
+```ruby
 ls | length  # 打印出当前目录下文件数量
 ls **/*.ipynb  # 列出所有嵌套在当前目录下的非隐藏文件
 ls -a **/*.nu
@@ -80,7 +80,7 @@ let x = if true {-1} else {1}
 
 高级通配符（\*，?，[]），以及：
 
-```nu
+```ruby
 let rjx = 'rm_rjx'
 let rjx_glob = ($"*($rjx)*" | into glob)
 ls $rjx_glob
