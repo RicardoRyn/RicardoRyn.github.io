@@ -1,0 +1,13 @@
+{{/* Remove the setting left by the former three-state switch. Upstream only accepts light/dark. */}}
+<script>
+try {
+    if (localStorage.getItem("theme") === "auto") localStorage.removeItem("theme");
+} catch (_) {}
+</script>
+{{ if hugo.IsProduction }}
+{{ $theme_script := resources.Get "js/theme.js" | minify | fingerprint }}
+<script src="{{ $theme_script.RelPermalink }}" integrity="{{ $theme_script.Data.Integrity }}"></script>
+{{ else }}
+{{ $theme_script := resources.Get "js/theme.js" }}
+<script src="{{ $theme_script.RelPermalink }}"></script>
+{{ end }}

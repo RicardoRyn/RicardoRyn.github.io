@@ -66,14 +66,6 @@ dateFormat = ""
   intro = "RicardoRyn"
   description = "靡不有初 鲜克有终"
 
-  [params.webmanifest]
-  theme_color = "#1e1e2e"
-  background_color = "#eff1f5"
-  display = "standalone"
-
-  [params.browserconfig]
-  TileColor = "#1e66f5"
-
   [[params.socialIcons]]
   name = "github"
   url = "https://github.com/RicardoRyn"
