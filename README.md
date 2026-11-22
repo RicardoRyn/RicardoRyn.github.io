@@ -12,7 +12,8 @@
 | `content/posts/` | 文章，一篇一个目录（`index.md`，图片放同目录） |
 | `content/pages/` | 独立页面（关于、联系） |
 | `assets/sass/` | 配色覆盖（Catppuccin Latte / Mocha） |
-| `assets/code-highlight.css` | 代码高亮配色（亮暗两套） |
+| `assets/code-highlight.css` | 代码高亮的 token 配色，由脚本生成 |
+| `scripts/gen-code-highlight.py` | 生成上面那个文件的脚本 |
 | `archetypes/default.md` | 新建文章的模板 |
 | `themes/hugo-blog-awesome/` | 主题，**不要直接修改** |
 | `.github/workflows/hugo.yml` | 推送到 `main` 时自动构建并发布 |
@@ -24,6 +25,22 @@
 - 处理方式：下载该提交的源码归档后解压，删除了 `.github/`、`.devcontainer/`、`exampleSite/`、`images/` 等与本博客无关的开发文件，其余内容与上游一致。
 
 升级主题时：下载新提交的归档，用同样的排除规则替换整个 `themes/hugo-blog-awesome/` 目录，然后更新本节记录的提交号。自己的样式都在 `assets/` 里，不会被覆盖。
+
+## 代码高亮配色
+
+`assets/code-highlight.css` 不要手改，用脚本重新生成：
+
+```bash
+python3 scripts/gen-code-highlight.py
+```
+
+脚本用 `hugo gen chromastyles` 取 Catppuccin Latte 和 Mocha 两套配色，然后做三件上游没做的事：
+
+1. 暗色规则只作用在 `html.dark` 和 `prefers-color-scheme: dark` 下，不会污染亮色模式。
+2. 补上 Catppuccin 主题缺失的 token（标点 `.p`、空白 `.w`、关键字值 `.kv`、杂项数字 `.mx`）。主题自带一套 Gruvbox 规则，会把这些 token 染成 `#fbf1c7`，在浅色背景下对比度只有 1.07:1，等于看不见。
+3. 把对比度低于 4.5:1 的 token 沿原色相调暗或调亮，色相和饱和度保持 Catppuccin 原值。
+
+想恢复 Catppuccin 的原始色值（会有很多 token 在浅色模式下偏淡），把脚本里的 `MIN_CONTRAST` 改成 `1` 再跑一次即可。
 
 ## 本地预览
 
