@@ -8,6 +8,6 @@ author: RicardoRyn
 url: /contact/
 ---
 
-个联系方式：
+联系方式：
 
 - GitHub：[github.com/RicardoRyn](https://github.com/RicardoRyn)（issue 或 PR 我都会看到）

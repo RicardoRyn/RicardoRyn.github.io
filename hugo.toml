@@ -61,6 +61,7 @@ rssFeedDescription = "full"
 dateFormat = ""
 
   [params.author]
+  avatar = "longmaythesunshine.jpg"
   name = "RicardoRyn"
   intro = "RicardoRyn"
   description = "靡不有初 鲜克有终"
