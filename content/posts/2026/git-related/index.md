@@ -22,8 +22,8 @@ Git 把文件放在五个地方，理解这些位置，后面的命令就好记�
 ## 常规设置
 
 ```bash
-git config --global user.name "Ricardo_MI" # 名字里没有空格时，双引号可以省略
-git config --global user.email "ricardoryn1317@gmail.com"
+git config --global user.name "Example User" # 名字里没有空格时，双引号可以省略
+git config --global user.email "user@example.com"
 git config --global init.defaultBranch main # 新仓库默认分支叫 main
 
 # 查看配置文件
@@ -33,7 +33,7 @@ cat ~/.gitconfig
 ## SSH 免密登录
 
 ```bash
-ssh-keygen -t rsa -b 4096 -C ricardoryn1317@gmail.com
+ssh-keygen -t rsa -b 4096 -C user@example.com
 ```
 
 - `-t` 指定加密算法
@@ -56,7 +56,7 @@ Your identification has been saved in /Users/你的用户名/.ssh/id_rsa
 Your public key has been saved in /Users/你的用户名/.ssh/id_rsa.pub
 ```
 
-打开 `.pub` 结尾的那个文件，复制里面全部内容。登录 GitHub，进入 `Settings` → `SSH and GPG keys` → `New SSH key`，Title 随便写（例如 `ricardo_github`），把内容粘到 Key 里保存。
+打开 `.pub` 结尾的那个文件，复制里面全部内容。登录 GitHub，进入 `Settings` → `SSH and GPG keys` → `New SSH key`，Title 随便写（例如 `github-ssh-key`），把内容粘到 Key 里保存。
 
 ```bash
 ssh -T git@github.com # 测试连接，看到 "Hi 用户名! You've successfully authenticated" 就成功了
@@ -65,7 +65,7 @@ ssh -T git@github.com # 测试连接，看到 "Hi 用户名! You've successfully
 如果仓库地址是 `https://` 形式，想改成 SSH 写法，用这条命令：
 
 ```bash
-git remote set-url origin git@github.com:RicardoRyn/nvim.git
+git remote set-url origin git@github.com:YOUR-USERNAME/YOUR-REPOSITORY.git
 ```
 
 > 现在更推荐 `ssh-keygen -t ed25519`，密钥更短，同样安全。已经有 RSA 密钥就不用换。
@@ -74,7 +74,7 @@ git remote set-url origin git@github.com:RicardoRyn/nvim.git
 
 ```bash
 # 已经生成过密钥就不用再执行这一条
-ssh-keygen -t rsa -b 4096 -C ricardoryn1317@gmail.com
+ssh-keygen -t rsa -b 4096 -C user@example.com
 
 # 真正有用的命令
 ssh-copy-id aaa@xxx.xxx.xxx.xxx
@@ -116,10 +116,10 @@ gpg: marginals needed: 3  completes needed: 1  trust model: pgp
 gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
 /Users/你的用户名/.gnupg/pubring.kbx
 ------------------------------------
-sec   rsa4096/XXXXXXXXXXXXXXXX 2026-05-28 [SC]
+sec   rsa4096/XXXXXXXXXXXXXXXX 2025-01-01 [SC]
       YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
-uid                 [ultimate] RicardoRyn (T8) <RicardoRyn1317@gmail.com>
-ssb   rsa4096/ZZZZZZZZZZZZZZZZ 2026-05-28 [E]
+uid                 [ultimate] Example User <user@example.com>
+ssb   rsa4096/ZZZZZZZZZZZZZZZZ 2025-01-01 [E]
 ```
 
 - `X`：主密钥 ID，16 位，可公开。它是 `Y` 的后 16 位，用作公钥的简称。
@@ -198,7 +198,7 @@ git rm --cached 文件名 # 停止追踪文件，但保留磁盘上的文件
 ### 推送到远端
 
 ```bash
-git remote add origin https://github.com/RicardoRyn/Plot_fig.git
+git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
 git remote -v
 
 git push                # 第一次推送要输入用户名和 token

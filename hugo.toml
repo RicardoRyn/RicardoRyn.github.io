@@ -67,9 +67,13 @@ dateFormat = ""
   description = "靡不有初 鲜克有终"
 
   [[params.socialIcons]]
+  name = "email"
+  url = "mailto:rjx@mail.ustc.edu.cn"
+
+  [[params.socialIcons]]
   name = "github"
   url = "https://github.com/RicardoRyn"
 
   [[params.socialIcons]]
-  name = "Rss"
-  url = "index.xml"
+  name = "bilibili"
+  url = "https://space.bilibili.com/178380883"

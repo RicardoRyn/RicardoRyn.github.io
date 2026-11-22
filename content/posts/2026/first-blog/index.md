@@ -13,7 +13,7 @@ tocOpen: false
 如今借着 AI 的帮助，总算迈出了第一步。
 当务之急，是把 AI 的知识，装进自己的脑子里。
 
-## 本博客中的三要素
+## 三要素
 
 整个博客只有三样东西在工作：
 
@@ -21,46 +21,55 @@ tocOpen: false
 2. **themes**：决定网页长什么样。本站用的是 `hugo-blog-awesome`。
 3. **GitHub Actions 和 Pages**：`push` 之后，Github 自动跑 Hugo，把结果发布上线。
 
-没有数据库，服务器依赖 Github，所以它很快，也不太会坏。
+```bash
+brew install hugo
 
-## 怎么写一篇新文章
+brew tap dart-lang/dart
+brew install sass/sass/sass
+```
+
+没有数据库，服务器依赖 Github。
+
+## 开启新篇章
 
 ```bash
 hugo new content posts/my-next-post/index.md
 hugo server -D
 ```
 
+也可以手动创建 markdown 文件。
+
 第二条命令会在本地启动预览服务，打开 <http://localhost:1313/> 预览，修改保存后自动刷新。
 
-## 正文排版示例
-
-浅色：Catppuccin Latte，深色：Catppuccin Mocha。
+## Markdown 就好
 
 主题自带样式，直接写 Markdown 即可。
-例如：
 
-Unordered:
+无序列表
 
-- Item 1
-- Item 2
-  - Nested item
+- 条目 1
+- 条目 2
+  - 嵌套条目
 
-Ordered:
+有序列表:
 
-1. First item
-2. Second item
-3. Third item
+1. 第一条
+2. 第二条
+3. 第三条
 
-> This is a blockquote
-> Multiple lines
+引用块：
+
+> 多行引用块
 >
-> > Nested quote
+> > 嵌套引用
+
+特殊引用块：
 
 > [!INFO]
-> abc
+> 信息
 >
-> > [!BUG]
-> > abc
+> > [!WARNING]
+> > 警告
 
 ```diff
 --- config.txt
@@ -73,18 +82,17 @@ Ordered:
  Port=8080
 ```
 
-```javascript
-function hello() {
-  console.log("Hello, world!");
-}
+```python
+def hello():
+    print("hello world")
 ```
 
-| Header 1 | Header 2 | Header 3 |
-| -------- | -------- | -------- |
-| Row 1    | Data     | Data     |
-| Row 2    | Data     | Data     |
+| 标题 1 | 标题 2 | 标题 3 |
+| ------ | ------ | ------ |
+| 行 2   | 数据   | 数据   |
+| 行 1   | 数据   | 数据   |
 
 ---
 
-- [x] Completed task
-- [ ] Another task
+- [x] 已完成的任务
+- [ ] 未完成的任务

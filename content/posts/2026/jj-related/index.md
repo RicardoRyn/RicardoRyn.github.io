@@ -21,8 +21,8 @@ jj config path --user
 
 ```bash
 # 用户名和邮箱
-jj config set --user user.name "Ricardo_T8"
-jj config set --user user.email "RicardoRyn1317@gmail.com"
+jj config set --user user.name "Example User"
+jj config set --user user.email "user@example.com"
 
 # 默认编辑器（值要用 TOML 字符串，所以带引号）
 jj config set --user core.editor '"nvim"'
@@ -58,7 +58,7 @@ jj git remote list
 也可以直接克隆：
 
 ```bash
-jj git clone git@github.com:RicardoRyn/仓库名.git
+jj git clone git@github.com:用户名/仓库名.git
 ```
 
 ### 查看提交
