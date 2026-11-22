@@ -29,6 +29,69 @@ button#mode {
   @include code-surface(#181825, $dark-gray, $dark-blockquote-text);
 }
 
+.toc-rail { display: none; }
+
+@media (min-width: 1280px) {
+  .toc-inline { display: none; }
+
+  // Clip horizontal overflow without creating a scroll container for sticky.
+  html, body { overflow-x: clip; }
+
+  // Keep the title's top margin inside the wrapper so the rail can align with it.
+  .wrapper.post:has(.toc-rail) { display: flow-root; }
+
+  .toc-rail {
+    display: block;
+    position: absolute;
+    top: 7.8rem;
+    bottom: 0;
+    left: calc(50% + #{$narrow-size} / 2 + 1rem);
+    width: min(15rem, calc(100vw - 50% - #{$narrow-size} / 2 - 2rem));
+  }
+
+  .toc-sidebar {
+    position: sticky;
+    top: 2rem;
+    box-sizing: border-box;
+    max-height: calc(100vh - 3rem);
+    margin: 0;
+    padding: 0 0 0 .8rem;
+    background: transparent;
+    overflow: auto;
+    overflow-wrap: anywhere;
+    font-size: $small-font-size;
+
+    summary { cursor: pointer; }
+    ul { padding-top: .4rem; }
+
+    // Reduce the theme's 4em nested indentation to 2em.
+    ul ul {
+      margin-left: .5rem;
+      padding-left: .5rem;
+    }
+    a[aria-current="location"] {
+      display: block;
+      padding: .1rem .4rem;
+      border-radius: .3rem;
+      background-color: $inline-code-bg;
+    }
+  }
+
+  html.dark .toc-sidebar a[aria-current="location"] {
+    background-color: $dark-inline-code-bg;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not(.light) .toc-sidebar a[aria-current="location"] {
+      background-color: $dark-inline-code-bg;
+    }
+  }
+
+  // Override the theme's dark-mode .toc background (higher specificity).
+  html.dark .toc.toc-sidebar,
+  html:not(.light) .toc.toc-sidebar { background-color: transparent; }
+}
+
 html.dark { @include mocha-code; }
 @media (prefers-color-scheme: dark) {
   html:not(.light) { @include mocha-code; }

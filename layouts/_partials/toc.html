@@ -1,0 +1,19 @@
+{{- $toc := .Site.Params.toc -}}
+{{- if isset .Params "toc" -}}
+  {{- $toc = .Params.toc -}}
+{{- end -}}
+{{- if and $toc (in .TableOfContents "<a ") -}}
+  {{- $open := and (or .Site.Params.tocOpen .Params.tocOpen) (ne .Params.tocOpen false) -}}
+  <details class="toc toc-inline"{{ if $open }} open{{ end }}>
+    <summary><b>{{ T "single.table_of_contents" }}</b></summary>
+    {{ .TableOfContents }}
+  </details>
+  <aside class="toc-rail" aria-label="{{ T "single.table_of_contents" }}">
+    <details class="toc toc-sidebar" open>
+      <summary><b>{{ T "single.table_of_contents" }}</b></summary>
+      {{ replace .TableOfContents `id="TableOfContents"` `id="SidebarTableOfContents"` | safeHTML }}
+    </details>
+  </aside>
+  {{- $script := resources.Get "js/toc.js" | minify | fingerprint -}}
+  <script defer src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+{{- end -}}
