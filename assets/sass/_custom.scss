@@ -46,7 +46,8 @@ button#mode {
     top: 7.8rem;
     bottom: 0;
     left: calc(50% + #{$narrow-size} / 2 + 1rem);
-    width: min(15rem, calc(100vw - 50% - #{$narrow-size} / 2 - 2rem));
+    width: 15rem;
+    max-width: calc(50vw - #{$narrow-size * 0.5} - 2rem);
   }
 
   .toc-sidebar {
