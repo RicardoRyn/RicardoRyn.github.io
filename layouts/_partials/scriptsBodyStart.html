@@ -1,13 +1,7 @@
-{{/* Remove the setting left by the former three-state switch. Upstream only accepts light/dark. */}}
-<script>
-try {
-    if (localStorage.getItem("theme") === "auto") localStorage.removeItem("theme");
-} catch (_) {}
-</script>
-{{ if hugo.IsProduction }}
-{{ $theme_script := resources.Get "js/theme.js" | minify | fingerprint }}
-<script src="{{ $theme_script.RelPermalink }}" integrity="{{ $theme_script.Data.Integrity }}"></script>
-{{ else }}
-{{ $theme_script := resources.Get "js/theme.js" }}
-<script src="{{ $theme_script.RelPermalink }}"></script>
+{{ range $mode, $file := dict "auto" "sun-moon.svg" "light" "sun.svg" "dark" "moon.svg" }}
+  {{ with resources.Get (printf "icons/theme/%s" $file) }}
+    <template id="theme-icon-{{ $mode }}">{{ .Content | safeHTML }}</template>
+  {{ end }}
 {{ end }}
+{{ $script := resources.Get "js/theme.js" | minify | fingerprint }}
+<script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>

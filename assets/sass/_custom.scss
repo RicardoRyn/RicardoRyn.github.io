@@ -1,0 +1,35 @@
+button#mode {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font-size: 21px;
+  line-height: 1;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+}
+
+// Set the code block background and scrollbar colors in each mode.
+@mixin code-surface($background, $thumb, $hover) {
+  pre,
+  pre.chroma {
+    background-color: $background;
+    scrollbar-color: $thumb $background;
+
+    &::-webkit-scrollbar-track { background-color: $background; }
+    &::-webkit-scrollbar-thumb { background-color: $thumb; }
+    &::-webkit-scrollbar-thumb:hover { background-color: $hover; }
+  }
+}
+
+@include code-surface(#e6e9ef, $gray, $blockquote-text);
+
+@mixin mocha-code {
+  @include code-surface(#181825, $dark-gray, $dark-blockquote-text);
+}
+
+html.dark { @include mocha-code; }
+@media (prefers-color-scheme: dark) {
+  html:not(.light) { @include mocha-code; }
+}

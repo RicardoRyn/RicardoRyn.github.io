@@ -12,6 +12,9 @@
 | `content/posts/` | 文章，一篇一个目录（`index.md`，图片放同目录） |
 | `content/pages/` | 独立页面（关于、联系） |
 | `archetypes/default.md` | 新建文章的模板 |
+| `assets/sass/`、`assets/code-highlight.css` | 站点配色、代码块样式和语法高亮 |
+| `assets/icons/theme/` | 主题切换按钮的三个 SVG 图标 |
+| `assets/js/theme.js`、`layouts/_partials/scriptsBodyStart.html` | 切换逻辑，以及加载图标和脚本的模板 |
 | `themes/hugo-blog-awesome/` | 主题，**不要直接修改** |
 | `.github/workflows/hugo.yml` | 推送到 `main` 时自动构建并发布 |
 
@@ -21,7 +24,15 @@
 - 固定提交：`6fcfddf960a41309a6a376d513ff661ed422119a`
 - 处理方式：下载该提交的源码归档后解压，删除了 `.github/`、`.devcontainer/`、`exampleSite/`、`images/` 等与本博客无关的开发文件，其余内容与上游一致。
 
-升级主题时：下载新提交的归档，用同样的排除规则替换整个 `themes/hugo-blog-awesome/` 目录，然后更新本节记录的提交号。站点直接使用该版本主题的默认配色、代码高亮和深浅切换按钮。
+升级主题时：下载新提交的归档，用同样的排除规则替换整个 `themes/hugo-blog-awesome/` 目录，然后更新本节记录的提交号。站点保留该版本主题的布局。自定义配色和切换功能不直接修改上游主题文件。
+
+## 深浅色切换
+
+浅色使用 Catppuccin Latte，深色使用 Catppuccin Mocha。代码高亮使用 Hugo Chroma 的对应配色。
+
+点击导航栏的主题按钮，按「跟随系统 → 浅色 → 深色」循环。跟随系统时，系统外观变化会立即生效，不用刷新。手动选择浅色或深色后，浏览器会记住该选择。
+
+三个图标分别是 `sun-moon.svg`（跟随系统）、`sun.svg`（浅色）和 `moon.svg`（深色），均位于 `assets/icons/theme/`，不依赖 Nerd Fonts。
 
 ## 本地预览
 
@@ -68,6 +79,6 @@ jj bookmark set main -r @     # 把 main 指到这次修改上
 jj git push --bookmark main   # 推送到 GitHub
 ```
 
-推送后 GitHub Actions 会自动构建并发布，约 1 分钟后线上更新。在仓库的 **Actions** 页可以看到每次构建的状态。
+推送后 GitHub Actions 会自动构建并发布。可在仓库的 **Actions** 页查看进度。
 
 首次部署前需要在仓库 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。
