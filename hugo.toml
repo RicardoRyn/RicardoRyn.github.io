@@ -1,0 +1,82 @@
+title = "RicardoRyn"
+baseURL = "https://ricardoryn.github.io/"
+enableRobotsTXT = true
+summaryLength = 30
+locale = "en-us"
+enableEmoji = true
+theme = "hugo-blog-awesome"
+
+[outputs]
+home = ["html", "rss"]
+section = ["html", "rss"]
+rss = ["rss"]
+taxonomy = ["html"]
+term = ["html"]
+
+[caches]
+  [caches.images]
+  dir = ":cacheDir/images"
+
+# 代码高亮：使用 class（配合 assets/code-highlight.css 的亮暗两套配色）
+[markup.highlight]
+noClasses = false
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.tableOfContents]
+startLevel = 2
+endLevel = 4
+ordered = false
+
+[menu]
+  [[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 10
+  [[menu.main]]
+  name = "Posts"
+  url = "/posts/"
+  weight = 20
+  [[menu.main]]
+  name = "About"
+  pageRef = "pages/about"
+  url = "/about/"
+  weight = 30
+  [[menu.main]]
+  name = "Contact"
+  pageRef = "pages/contact"
+  url = "/contact/"
+  weight = 40
+
+[params]
+sitename = "RicardoRyn"
+defaultColor = "auto"
+description = "RicardoRyn 的个人博客"
+mainSections = ["posts"]
+toc = true
+tocOpen = false
+goToTop = true
+rssFeedDescription = "full"
+dateFormat = ""
+
+  [params.author]
+  name = "RicardoRyn"
+  intro = "RicardoRyn"
+  description = "靡不有初 鲜克有终"
+
+  [params.webmanifest]
+  theme_color = "#1e1e2e"
+  background_color = "#eff1f5"
+  display = "standalone"
+
+  [params.browserconfig]
+  TileColor = "#1e66f5"
+
+  [[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/RicardoRyn"
+
+  [[params.socialIcons]]
+  name = "Rss"
+  url = "index.xml"

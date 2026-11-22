@@ -1,0 +1,90 @@
+//////////////// 1. Light Colors — Catppuccin Latte /////////////////
+$text-base-color: #5c5f77; // subtext1
+$text-link-blue: #1e66f5; // blue
+$text-link-blue-active: #8839ef; // mauve
+$bloquote-border: #bcc0cc; // surface1
+$blockquote-text: #6c6f85; // subtext0
+$inline-code-text: #4c4f69; // text
+$inline-code-bg: #ccd0da; // surface0
+$toc-bg: #e6e9ef; // mantle
+$go-top-bg: #bcc0cc99; // surface1 @ 60%
+$go-top-bg-hover: #bcc0cc; // surface1
+
+$black: #4c4f69; // text
+$light: #ccd0da; // surface0
+$smoke: #acb0be; // surface2
+$gray: #8c8fa1; // overlay1
+$white: #eff1f5; // base
+
+//////////////// 2. Dark Colors — Catppuccin Mocha /////////////////
+$dark-text-base-color: #bac2de; // subtext1
+$dark-text-link-blue: #89b4fa; // blue
+$dark-text-link-blue-active: #cba6f7; // mauve
+$dark-bloquote-border: #45475a; // surface1
+$dark-blockquote-text: #a6adc8; // subtext0
+$dark-inline-code-text: #cdd6f4; // text
+$dark-inline-code-bg: #313244; // surface0
+$dark-toc-bg: #313244; // surface0
+$dark-go-top-bg: #45475a99; // surface1 @ 60%
+$dark-go-top-bg-hover: #45475a; // surface1
+
+$dark-black: #1e1e2e; // base
+$dark-white: #cdd6f4; // text
+$dark-light: #313244; // surface0
+$dark-smoke: #585b70; // surface2
+$dark-gray: #7f849c; // overlay1
+
+//////////////// 3. Fonts preferences /////////////////
+$sans-family: Roboto, sans-serif;
+$mono-family: Consolas, monospace;
+$base-font-size: 16px;
+$medium-font-size: $base-font-size * 0.938;
+$small-font-size: $base-font-size * 0.875;
+$base-line-height: 1.85;
+
+// Font weight
+$normal-weight: 400;
+$bold-weight: 700;
+
+//////////////// 4. Responsive design (media queries) /////////////////
+$wide-size: 890px;
+$narrow-size: 720px;
+
+// Padding unit
+$spacing-full: 30px;
+$spacing-half: $spacing-full * 0.5;
+
+// Screen sizes
+$on-mobile: 768px;
+$on-tablet: 769px;
+$on-desktop: 1024px;
+$on-widescreen: 1152px;
+
+@mixin media-query($device) {
+    @media screen and (max-width: $device) {
+        @content;
+    }
+}
+
+@mixin relative-font-size($ratio) {
+    font-size: $base-font-size * $ratio;
+}
+
+//////////////// 5. Import all sass files /////////////////
+
+@import "fonts";
+@import "base";
+@import "navbar";
+@import "layout";
+@import "post";
+@import "code";
+
+@import "tableOfContent";
+@import "miscellaneous";
+@import "dark";
+@import "listpage";
+@import "custom";
+
+{{ with .Site.Params.goToTop }}
+@import "goToTop";
+{{ end }}

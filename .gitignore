@@ -1,0 +1,10 @@
+# Hugo
+.hugo_build.lock
+public/
+resources/
+
+# 系统与编辑器
+.DS_Store
+
+# Agents
+PLAN.md
