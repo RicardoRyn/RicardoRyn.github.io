@@ -1,0 +1,29 @@
+<script src="https://giscus.app/client.js"
+        data-repo="RicardoRyn/RicardoRyn.github.io"
+        data-repo-id="R_kgDOV3Ln4g"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOV3Ln4s4DLx-e"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="catppuccin_latte"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+<script>
+    // giscus 的 data-theme 是静态的，这里让它跟随站点的浅色 / 深色切换。
+    const host = document.currentScript.parentElement;
+    const syncGiscus = () => {
+        const html = document.documentElement.classList;
+        const dark = html.contains("dark") ||
+            (!html.contains("light") && matchMedia("(prefers-color-scheme: dark)").matches);
+        host.querySelector("iframe.giscus-frame")?.contentWindow.postMessage(
+            { giscus: { setConfig: { theme: dark ? "catppuccin_mocha" : "catppuccin_latte" } } },
+            "https://giscus.app");
+    };
+    new MutationObserver(syncGiscus).observe(host, { childList: true });            // iframe 插入时
+    new MutationObserver(syncGiscus).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] }); // 切换主题时
+</script>
