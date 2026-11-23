@@ -25,31 +25,33 @@ tocOpen: false
 
 ### 插件管理
 
-插件全部交给内置的 `vim.pack`，插件清单写在 `lua/config/pack.lua`。
+插件管理靠 `vim.pack`，插件清单见 `lua/config/pack.lua`。
 
-已安装但当前配置不再声明的插件，会被 `:PackClean` 列出，并可通过 `:PackClean!` 删除。
-如果只是暂时停用某个插件，但仍希望将其保留在磁盘上，可以把它写进 `disabled_specs`。
-这些条目不会被加载，但仍受保护，不会被当作孤儿插件清理掉。
+已安装但当前配置不再声明的插件，会被视为孤儿插件，并在下一次启动 nvim 时被自动删除。
+
+若只是暂时停用某个插件，但仍希望将其保留在磁盘上，可以把它写进 `disabled_specs`。
+这些条目不会被加载，但仍受保护而不会被当作孤儿插件删除。
 
 | 命令                     | 快捷键       | 作用                    |
 | ------------------------ | ------------ | ----------------------- |
 | `:PackStatus`            | `<leader>Ps` | 查看已安装插件状态      |
 | `:PackUpdate`            | `<leader>Pu` | 检查插件更新（dry-run） |
 | `:PackUpdate!`           | `<leader>PU` | 更新并跳过确认          |
-| `:PackClean`             | `<leader>Pc` | 列出孤儿插件            |
-| `:PackClean!`            | `<leader>PC` | 删掉孤儿插件            |
 | `:PackDel <plugin_name>` | 无           | 删除指定插件            |
 
 ### 启动
 
 开了 `vim.loader`，Lua 模块编译后有缓存，第二次启动快一些。
 
-补全（`mini.completion` 加 `mini.snippets`）是懒加载的：等第一个普通文件 buffer 出现才初始化，配置在 `lua/config/completion.lua`。
+补全（`mini.completion` 加 `mini.snippets`）是懒加载的，等第一个普通文件 buffer 出现才初始化。
+见 `lua/config/completion.lua`。
 
-`:StartupTime` 会读出 `nvim --startuptime` 写下的日志，把最后一条 `--- NVIM STARTED ---` 的耗时报出来。
-它本身不计时，所以前提是你得先用 `--startuptime` 启动，或者通过 `NVIM_STARTUP_LOG` 把日志路径告诉它。
+> 喂，前面可是地狱啊！（指查看 nvim 启动时间）
 
-每次手敲参数太麻烦，可以在 `.bashrc` 里把 `nvim` 包一层，让每次启动都自动带上日志，退出后再把日志清掉：
+自定义命令 `:StartupTime` 本身不计时，而是会读出 `nvim --startuptime <log_file>` 写下的日志，报告最后一条 `--- NVIM STARTED ---` 对应的时间。
+所以你得先用 `--startuptime` 参数启动 nvim，或者通过 `NVIM_STARTUP_LOG` 把日志路径告诉它。
+
+每次手敲 `nvim --startuptime <log_file>` 太麻烦，可以在 `.bashrc` 里把 `nvim` 包一层，让每次启动都自动带上日志，退出后再把日志清掉：
 
 ```bash
 function nvim() {
@@ -63,9 +65,25 @@ function nvim() {
 }
 ```
 
-> 喂，前面可是地狱啊！（指查看 nvim 启动时间）
+> 你完全可以无视启动速度，一辈子都用不到 `:StartupTime` 命令。
+> 至少该配置在我日常使用中的启动速度完全可以接受。
 
-### 预置的 LSP
+### Treesitter
+
+本配置使用 [`nvim-treesitter`](https://github.com/nvim-treesitter/nvim-treesitter)管理 Tree-sitter 语言解析器及其 queries，
+为 nvim 提供基于语法树的编辑功能。
+安装语言解析器需要使用 [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md) 进行构建。
+请确保已安装该命令行工具，并将其加入 PATH。
+
+如果你使用cargo，可以：
+
+```bash
+cargo install --locked tree-sitter-cli # build it from source
+# or
+cargo binstall tree-sitter-cli # with cargo-binstall
+```
+
+### LSP
 
 `lsp/` 里预置了六个语言服务器，并通过 `lua/config/lsp.lua` 中的 `vim.lsp.enable()` 启用：
 
@@ -76,31 +94,36 @@ function nvim() {
 - `rust_analyzer`
 - `texlab`
 
-> 这些 LSP 由 Mason 自动安装，如果你不需要或者需要其他的，需要修改 Mason 中的配置。
+> LSP 服务器配置由 [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) 提供，语言服务器则通过 [mason.nvim](https://github.com/mason-org/mason.nvim) 安装和管理。
+>
+> 你可以在 `plugin/mason_nvim.lua` 中修改需要安装的语言服务器列表，移除不需要的服务器，或添加其他服务器。
 
 ### 自定义模块
 
-有些需求太小，不值得引入一个功能繁多的插件。这类功能自己写，逻辑轻，但是启动时间不保证（悲）：
+有些需求太小，不值得引入一个过重的插件。
+这类功能自己写（向AI许愿），逻辑更简单：
 
-| 模块             | 说明                                                               |
-| ---------------- | ------------------------------------------------------------------ |
-| `sessions`       | 按工作目录自动保存和恢复会话（放在 `plugin/`）                     |
-| `buffer_actions` | buffer 的循环、移动、关闭、固定，供 heirline tabline 使用          |
-| `csv_view`       | CSV 对齐、粘性表头，大文件按采样计算列宽                           |
-| `heirline`       | statusline（15 个以上组件）和 tabline（bufferline / tabpages）构件 |
-| `lazy`           | 首次按下某个键或执行某条命令时，才做插件 setup                     |
-| `mini_nvim`      | `mini.nvim` 部分插件的扩展；主要是 `mini.files`                    |
-| `snacks_nvim`    | `snacks.nvim` 的配置与扩展：picker、indent、todos、调试工具        |
-| `icons.lua`      | 图标字形映射（diff、diagnostics、DAP 等）                          |
-| `jj_log`         | 取 `jj log` 的信息，喂给 statusline                                |
-| `special_mode`   | 识别 diff / merge tool 的启动场景（比如 jj、hunk.nvim）            |
-| `system`         | 系统识别（Windows / macOS / Linux，以及具体的发行版）              |
+| 模块             | 说明                                                                                          |
+| ---------------- | --------------------------------------------------------------------------------------------- |
+| `sessions`       | 按工作目录自动保存和恢复会话（见 `plugin/sessions.lua`）                                      |
+| `buffer_actions` | buffer 的循环、移动、关闭、固定，供 heirline tabline 使用（见 `lua/utils/buffer_actions`）    |
+| `csv_view`       | CSV 渲染、粘性表头，大文件按采样计算列宽（见 `lua/utils/csv_view`）                           |
+| `heirline`       | statusline（15 个以上组件）和 tabline（bufferline / tabpages）构件（见 `lua/utils/heirline`） |
+| `lazy`           | 首次按下某个快捷键或执行某条命令时，才执行插件 setup（见 `lua/utils/lazy`）                   |
+| `mini_nvim`      | `mini.nvim` 部分插件的扩展，主要是 `mini.files`（见 `lua/utils/mini_nvim`）                   |
+| `snacks_nvim`    | `snacks.nvim` 的配置与扩展：picker、indent、todos、调试工具（见 `lua/utils/snacks_nvim`）     |
+| `icons.lua`      | 图标字形映射（diff、diagnostics、DAP 等）（见 `lua/utils/icons.lua`）                         |
+| `jj_log`         | 结合 heirline 展示 `jj log` 的信息（见 `lua/utils/jj_log.lua`）                               |
+| `special_mode`   | 识别部分特殊的启动场景（比如 jj、hunk.nvim）的 diff 编辑器（见 `lua/utils/special_mode.lua`） |
+| `system`         | 系统识别（Windows / macOS / Linux，以及具体的发行版）（见 `lua/utils/system.lua`）            |
 
-> `lua/utils/deprecated/` 里是旧配置。这个目录下的文件一个都不会被加载，只当备份和参考留着。
+> `lua/utils/deprecated/` 里是旧配置，
+> 这个目录下的文件一个都不会被加载，只当备份和参考留着。
+> 不喜欢也可以删除这个文件夹。
 >
 > `mini_nvim` 也有大量对 `mini.pick` 的扩展配置，但是我不用 `mini.pick` 辣，白写这么多。
 
-### 在 VSCode 里用
+### 兼容 VSCode
 
 配置支持通过 [VSCode Neovim](https://github.com/vscode-neovim/vscode-neovim) 在 VSCode 里做模态编辑。
 
@@ -111,7 +134,7 @@ function nvim() {
 
 1. 在 VSCode 插件市场安装 `VSCode Neovim`。
 
-2. 在 `settings.json` 里配置一下：
+2. VSCode 的 `settings.json` 里增加如下配置：
 
    ```json
    {
@@ -128,19 +151,17 @@ function nvim() {
    }
    ```
 
-3. 想要手感好，还得在 VSCode 的 `keybindings.json` 里配一些键位。
-   可以参考我的 [keybindings.json](https://github.com/RicardoRyn/nvim/blob/main/docs/Code/keybindings.json)。
+3. 再配置亿些 VSCode 的快捷键，与 nvim 对齐，减少认知负担，参考我的 [keybindings.json](https://github.com/RicardoRyn/nvim/blob/main/docs/Code/keybindings.json)。
+   另有 VSCode 专属的键位在下面的 [VSCode 键位](#vscode-键位) 里。
 
 #### VSCode 里能用的插件
 
-大多数插件的配置脚本看到 `vim.g.vscode` 就跳过 setup，把 UI 和终端让给 VSCode。
-只有下面这些编辑类插件在 VSCode 里照常工作：
+大多数 nvim 插件在 VSCode 中都不会启用，只有下面这些编辑类插件才会照常工作：
 
 - **flash.nvim**：光标快速跳转（**为了这碟醋**）
 - **mini.ai**：更强的文本对象
 - **mini.bracketed**：用 `[` / `]` 跳到上一个 / 下一个目标
 - **mini.jump**：增强 `f` / `t` 跳转，带目标高亮
-- **mini.misc**：杂项工具（延迟 / 懒加载的 `safely`）
 - **mini.move**：任意方向移动选区或行
 - **mini.operators**：排序、替换、乘法、求值
 - **mini.pairs**：括号和引号自动补全
@@ -148,8 +169,6 @@ function nvim() {
 - **mini.statuscolumn**：自定义 statuscolumn（signs、fold、行号）
 - **mini.surround**：快速增删改包围符
 - **nvim-treesitter-textobjects**：基于 treesitter 的文本对象
-
-VSCode 专属的键位在下面的 [VSCode 键位](#vscode-键位) 里。
 
 ## 项目结构
 
@@ -198,6 +217,9 @@ VSCode 专属的键位在下面的 [VSCode 键位](#vscode-键位) 里。
 ```
 
 ## 键位
+
+> [!WARNING]
+> **以下键位可能过时，最新键位见[配置仓库](https://github.com/RicardoRyn/nvim)。**
 
 Leader 是 `<Space>`，local leader 是 `\`。
 
@@ -518,31 +540,31 @@ Leader 是 `<Space>`，local leader 是 `\`。
 - `Ctrl+Shift+=`：开关面板最大化
 - `Ctrl+Backtick`：内置终端没聚焦时，打开外部终端
 
-## 想试试？
+## 试试
 
-换个 app name 跑，就不用碰你原来的配置、插件和会话。
-包和会话都存在这个 app 自己的数据目录里，孤儿包也只有你跑 `:PackClean!` 时才会删。
+通过指定不同的 `NVIM_APPNAME`，可以在不影响现有 Neovim 配置、插件和会话的情况下，运行一套独立的 Neovim 环境：
 
 ```bash
 jj git clone https://github.com/RicardoRyn/nvim "${XDG_CONFIG_HOME:-$HOME/.config}/nvim-rr"
 NVIM_APPNAME=nvim-rr nvim
 ```
 
-> 访问 GitHub 慢的话，还有几个镜像：
-> [Codeberg](https://codeberg.org/RicardoRyn/nvim)、
-> [Tangled](https://tangled.org/ricardoryn.tngl.sh/nvim)、
-> [Gitee](https://gitee.com/RicardoRyn/nvim)。
+> 国内用户可尝试以下镜像：
+>
+> - [Gitee](https://gitee.com/RicardoRyn/nvim)、
+> - [Codeberg](https://codeberg.org/RicardoRyn/nvim)、
+> - [Tangled](https://tangled.org/ricardoryn.tngl.sh/nvim)。
 
 首次启动之后：
 
-1. 打开 `:Mason`，确认 `plugin/mason_nvim.lua` 里列出的语言服务器、格式化和调试适配器正在自动安装。
-2. 装完跑一遍 `:checkhealth`，检查依赖和 LSP 是否正常。
+1. 打开 `:Mason`，确认 `plugin/mason_nvim.lua` 里列出的语言服务器、格式化和调试适配器正在自动安装；
+2. 装完跑一遍 `:checkhealth`，检查依赖和 LSP 是否正常；
 3. 然后按自己的习惯改。
 
 ## 贡献
 
-[MIT](https://github.com/RicardoRyn/nvim/blob/main/LICENSE)。
+欢迎 [issue](https://github.com/RicardoRyn/nvim/issues) 与 [PR](https://github.com/RicardoRyn/nvim/pulls)。:)
 
 ---
 
-有建议欢迎提 [issue](https://github.com/RicardoRyn/nvim/issues) 或 [PR](https://github.com/RicardoRyn/nvim/pulls)。:)
+[MIT LICENSE](https://github.com/RicardoRyn/nvim/blob/main/LICENSE)
