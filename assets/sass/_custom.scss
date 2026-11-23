@@ -93,6 +93,12 @@ button#mode {
   html:not(.light) .toc.toc-sidebar { background-color: transparent; }
 }
 
+// Lower the Giscus widget by one line of body text.
+iframe.giscus-frame {
+  display: block;
+  margin-top: #{$base-line-height}em;
+}
+
 html.dark { @include mocha-code; }
 @media (prefers-color-scheme: dark) {
   html:not(.light) { @include mocha-code; }
