@@ -5,6 +5,7 @@ draft: false
 description: "jujutsu 的配置、日常操作、变基、拆分、回滚和冲突处理"
 toc: true
 tocOpen: false
+tags: ["jj"]
 ---
 
 我要成为 `jj` 糕手。

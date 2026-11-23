@@ -5,6 +5,7 @@ draft: false
 description: "Catppuccin 是一套柔和协调的粉彩配色主题，为 Neovim、终端及众多开发工具提供统一的视觉风格。"
 tocOpen: false
 toc: true
+tags: ["nvim"]
 ---
 
 有了博客，就想写点什么。

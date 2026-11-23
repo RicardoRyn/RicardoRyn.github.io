@@ -39,6 +39,10 @@ ordered = false
   url = "/posts/"
   weight = 20
   [[menu.main]]
+  name = "Tags"
+  url = "/tags/"
+  weight = 25
+  [[menu.main]]
   name = "About"
   pageRef = "pages/about"
   url = "/about/"

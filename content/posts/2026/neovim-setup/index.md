@@ -5,6 +5,7 @@ draft: false
 description: "一套跑在 Neovim 0.12 上的配置：vim.pack 管插件、懒加载补全、预置 LSP、一堆自定义小模块，外加 VSCode 里的伪装"
 toc: true
 tocOpen: false
+tags: ["nvim"]
 ---
 
 我的 Neovim 配置经历了三次构建：

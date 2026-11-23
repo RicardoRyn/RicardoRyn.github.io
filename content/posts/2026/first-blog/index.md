@@ -5,6 +5,7 @@ draft: false
 description: "用 Hugo + hugo-blog-awesome 主题 + GitHub Pages 搭一个静态博客"
 toc: true
 tocOpen: false
+tags: []
 ---
 
 几年前，我就动过搭建博客的念头。
