@@ -10,4 +10,4 @@ url: /contact/
 
 联系方式：
 
-- GitHub：[github.com/RicardoRyn](https://github.com/RicardoRyn)（issue 或 PR 我都会看到）
+- GitHub：[github.com/RicardoRyn](https://github.com/RicardoRyn)（[issue](https://github.com/RicardoRyn/RicardoRyn.github.io/issues) 或 [PR](https://github.com/RicardoRyn/RicardoRyn.github.io/pulls) 我都会看到）
