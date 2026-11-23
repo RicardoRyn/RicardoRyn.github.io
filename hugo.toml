@@ -77,3 +77,7 @@ dateFormat = ""
   [[params.socialIcons]]
   name = "bilibili"
   url = "https://space.bilibili.com/178380883"
+
+  [[params.socialIcons]]
+  name = "rss"
+  url = "/index.xml"
