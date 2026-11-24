@@ -110,3 +110,38 @@ html.dark { @include mocha-code; }
 @media (prefers-color-scheme: dark) {
   html:not(.light) { @include mocha-code; }
 }
+
+// 终端输出的 16 色映射，给 scripts/ansi-to-html.py 生成的 .ansi 块用。
+// 浅色取 Catppuccin Latte，深色取 Mocha，均已调到对代码块底色 ≥ 4.5:1。
+$ansi-light: (#4c4f69, #cf0f38, #307720, #915d13, #0d5af4, #be1d93, #127379, #65677a,
+              #64677b, #cd1b2b, #307720, #915d13, #0d5af4, #8636ef, #036f9b, #4c4f69);
+$ansi-dark: (#7d8196, #f38ba8, #a6e3a1, #f9e2af, #89b4fa, #f5c2e7, #94e2d5, #bac2de,
+             #7f849c, #eba0ac, #a6e3a1, #f9e2af, #89b4fa, #cba6f7, #89dceb, #cdd6f4);
+
+// 背景色用原始色板，不做对比度调整。
+$ansi-light-bg: (#dce0e8, #d20f39, #40a02b, #df8e1d, #1e66f5, #ea76cb, #179299, #eff1f5,
+                 #acb0be, #e64553, #40a02b, #df8e1d, #1e66f5, #8839ef, #04a5e5, #ccd0da);
+$ansi-dark-bg: (#11111b, #f38ba8, #a6e3a1, #f9e2af, #89b4fa, #f5c2e7, #94e2d5, #1e1e2e,
+                #585b70, #eba0ac, #a6e3a1, #f9e2af, #89b4fa, #cba6f7, #89dceb, #313244);
+
+@mixin ansi-colors($foreground, $background) {
+  @for $slot from 1 through length($foreground) {
+    .c#{$slot - 1} { color: nth($foreground, $slot); }
+    .bg#{$slot - 1} { background-color: nth($background, $slot); }
+  }
+}
+
+pre.ansi {
+  .b { font-weight: $bold-weight; }
+  .d { opacity: .85; }
+  .i { font-style: italic; }
+  .u { text-decoration: underline; }
+
+  @include ansi-colors($ansi-light, $ansi-light-bg);
+}
+
+html.dark pre.ansi { @include ansi-colors($ansi-dark, $ansi-dark-bg); }
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light) pre.ansi { @include ansi-colors($ansi-dark, $ansi-dark-bg); }
+}

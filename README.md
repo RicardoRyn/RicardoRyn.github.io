@@ -58,7 +58,6 @@ hugo build --gc --minify
 hugo new content posts/my-next-post/index.md
 ```
 
-`draft: true` 改成 `false` 才会发布。
 文章头部的字段：
 
 ```yaml
@@ -70,6 +69,30 @@ description: "一句话摘要，会出现在列表和 RSS 里"
 toc: true
 ---
 ```
+
+`draft: true` 改成 `false` 才会发布。
+
+## 带颜色的终端输出
+
+要保留 `jj log` 等命令的颜色，把输出存成文章目录里的 `.ansi` 文件。
+
+```bash
+jj log --color=always >content/posts/2026/my-post/log.ansi
+python3 scripts/ansi-to-html.py content/posts/2026/my-post/log.ansi
+rm content/posts/2026/my-post/log.ansi
+```
+
+然后在该文章里引用（无需 `.htmlfrag` 后缀）：
+
+```text
+{{</* ansi "log.ansi" */>}}
+```
+
+会处理 `content/` 下的所有 `.ansi` 文件，
+jj 只需追踪 `*.ansi.htmlfrag` 文件。
+
+终端颜色会映射到 Catppuccin Latte / Mocha，跟随站点深浅色切换。
+超出 16 色的颜色会取最接近的色位。
 
 ## 发布
 

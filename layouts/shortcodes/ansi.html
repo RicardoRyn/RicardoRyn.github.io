@@ -1,0 +1,19 @@
+{{- /*
+  在文章里插入带颜色的终端输出。
+
+  用法：把 `jj log --color=always` 的输出存成文章目录下的 `log.ansi`，
+  运行 `python3 scripts/ansi-to-html.py` 生成 `log.ansi.htmlfrag`，
+  然后在文章里用 ansi shortcode 引用这个文件名。
+
+  颜色由 assets/sass/_custom.scss 里的 pre.ansi 规则定义，跟随站点深浅色。
+*/ -}}
+{{- $source := .Get 0 -}}
+{{- if not $source -}}
+  {{- errorf "ansi shortcode 需要一个文件名，例如 log.ansi：%s" .Position -}}
+{{- end -}}
+{{- $generated := printf "%s.htmlfrag" $source -}}
+{{- with .Page.Resources.GetMatch $generated -}}
+  {{ .Content | safeHTML }}
+{{- else -}}
+  {{- errorf "找不到 %s（应由 %s 生成）。运行：python3 scripts/ansi-to-html.py" $generated $source -}}
+{{- end -}}
