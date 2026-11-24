@@ -1,7 +1,7 @@
 ---
 title: "学习使用 git"
 date: 2026-11-22T12:00:00+08:00
-draft: false
+draft: true
 description: "Git 常用命令、SSH 与 GPG 配置，以及 checkout / reset / revert 的原理"
 toc: true
 tocOpen: false

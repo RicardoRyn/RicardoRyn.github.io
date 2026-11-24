@@ -562,6 +562,13 @@ NVIM_APPNAME=nvim-rr nvim
 2. 装完跑一遍 `:checkhealth`，检查依赖和 LSP 是否正常；
 3. 然后按自己的习惯改。
 
+> [!IMPORTANT]
+> 若首次启动时出现大量错误，可能是 `vim.pack` 在安装插件时遇到网络问题，导致部分插件安装失败。
+> 此时，请重启 Neovim。
+> 本配置会自动清理 `stdpath("data")/site/pack/core/opt` 目录下因安装失败而遗留的空插件目录，并重新尝试安装这些插件。
+>
+> 此设置仅在 Neovim 0.12 稳定版本上经过测试，夜间构建版本则不在测试范围内。
+
 ## 贡献
 
 欢迎 [issue](https://github.com/RicardoRyn/nvim/issues) 与 [PR](https://github.com/RicardoRyn/nvim/pulls)。:)

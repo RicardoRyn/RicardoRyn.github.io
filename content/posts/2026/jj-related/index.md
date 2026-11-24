@@ -1,7 +1,7 @@
 ---
 title: "学习使用 jj"
 date: 2026-11-22T12:00:00+08:00
-draft: false
+draft: true
 description: "jujutsu 的配置、日常操作、变基、拆分、回滚和冲突处理"
 toc: true
 tocOpen: false
