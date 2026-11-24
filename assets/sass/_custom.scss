@@ -10,6 +10,13 @@ button#mode {
   padding: 0;
 }
 
+// 代码块字号：比正文小一档（$small-font-size = 16px × 0.875 = 14px）。
+// 行内代码不受影响，它由 _code.scss 里的 0.9em 控制。
+pre,
+pre code {
+  font-size: $small-font-size;
+}
+
 // Set the code block background and scrollbar colors in each mode.
 @mixin code-surface($background, $thumb, $hover) {
   pre,
