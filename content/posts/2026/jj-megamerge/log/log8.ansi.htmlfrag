@@ -1,0 +1,13 @@
+<pre class="ansi"><code><span class="c2 b">@</span>  <span class="c13 b">w</span><span class="c8 b">ontyzur</span> <span class="c3 b">RicardoRyn</span> <span class="c14 b">10 seconds ago</span> <span class="c12 b">1</span><span class="c8 b">4c75ad0</span>
+│  <span class="c10 b">(empty)</span> <span class="c10 b">(no description set)</span>
+○      <span class="c5 b">x</span><span class="c8">pwrlwrz</span> <span class="c3">RicardoRyn</span> <span class="c6">10 seconds ago</span> <span class="c4 b">3</span><span class="c8">1c74b29</span>
+├─┬─╮  <span class="c2">(empty)</span> megamerge
+│ │ ○  <span class="c5 b">z</span><span class="c8">yknqrvr</span> <span class="c3">RicardoRyn</span> <span class="c6">10 seconds ago</span> <span class="c4 b">cb</span><span class="c8">f89150</span>
+│ │ │  审查某个PR
+│ ○ │  <span class="c5 b">v</span><span class="c8">xquvnkz</span> <span class="c3">RicardoRyn</span> <span class="c6">15 minutes ago</span> <span class="c4 b">b</span><span class="c8">d8f93c6</span>
+│ ├─╯  修复某个bug
+○ │  <span class="c5 b">k</span><span class="c8">lkwrqom</span> <span class="c3">RicardoRyn</span> <span class="c6">8 minutes ago</span> <span class="c4 b">c7</span><span class="c8">f9e87d</span>
+├─╯  开发新特性
+<span class="c14 b">◆</span>  <span class="c5 b">l</span><span class="c8">wuntpmt</span> <span class="c3">Ricardo</span> <span class="c6">2 weeks ago</span> <span class="c5">main</span> <span class="c4 b">4</span><span class="c8">2b8ef4d</span>
+│  feat: test
+~</code></pre>

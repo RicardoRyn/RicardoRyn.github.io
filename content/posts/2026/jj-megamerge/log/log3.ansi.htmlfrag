@@ -1,0 +1,21 @@
+<pre class="ansi"><code><span class="c1 b">@</span>      <span class="c13 b">kp</span><span class="c8 b">tvwwyv</span> <span class="c3 b">RicardoRyn</span> <span class="c14 b">7 seconds ago</span> <span class="c12 b">ed</span><span class="c8 b">5a26c4</span> <span class="c9 b">(conflict)</span>
+├─┬─╮  <span class="c10 b">(empty)</span> <span class="c10 b">(no description set)</span>
+│ │ ○  <span class="c5 b">vu</span><span class="c8">kyrypq</span> <span class="c3">RicardoRyn</span> <span class="c6">20 seconds ago</span> <span class="c4 b">9</span><span class="c8">1d713b9</span>
+│ │ │  审查某个PR2
+│ │ ○  <span class="c5 b">z</span><span class="c8">yknqrvr</span> <span class="c3">RicardoRyn</span> <span class="c6">2 hours ago</span> <span class="c4 b">5</span><span class="c8">652ee14</span>
+│ │ │  审查某个PR
+│ ○ │  <span class="c5 b">r</span><span class="c8">monmnuq</span> <span class="c3">RicardoRyn</span> <span class="c6">1 hour ago</span> <span class="c4 b">6</span><span class="c8">058507f</span>
+│ │ │  修复某个bug3
+│ ○ │  <span class="c5 b">s</span><span class="c8">tzpykzt</span> <span class="c3">RicardoRyn</span> <span class="c6">1 hour ago</span> <span class="c4 b">41</span><span class="c8">87c24c</span>
+│ │ │  修复某个bug2
+│ ○ │  <span class="c5 b">vx</span><span class="c8">quvnkz</span> <span class="c3">RicardoRyn</span> <span class="c6">2 hours ago</span> <span class="c4 b">e7</span><span class="c8">f223cb</span>
+│ ├─╯  修复某个bug
+○ │  <span class="c5 b">n</span><span class="c8">vmrxsvv</span> <span class="c3">RicardoRyn</span> <span class="c6">1 hour ago</span> <span class="c4 b">7</span><span class="c8">7343477</span>
+│ │  开发新特性3
+○ │  <span class="c5 b">p</span><span class="c8">ovomvyr</span> <span class="c3">RicardoRyn</span> <span class="c6">1 hour ago</span> <span class="c4 b">eb</span><span class="c8">b17484</span>
+│ │  开发新特性2
+○ │  <span class="c5 b">kl</span><span class="c8">kwrqom</span> <span class="c3">RicardoRyn</span> <span class="c6">2 hours ago</span> <span class="c4 b">c</span><span class="c8">1050c03</span>
+├─╯  开发新特性
+<span class="c14 b">◆</span>  <span class="c5 b">l</span><span class="c8">wuntpmt</span> <span class="c3">Ricardo</span> <span class="c6">2 weeks ago</span> <span class="c5">main</span> <span class="c4 b">42</span><span class="c8">b8ef4d</span>
+│  feat: test
+~</code></pre>
