@@ -29,6 +29,14 @@ startLevel = 2
 endLevel = 4
 ordered = false
 
+# 数学公式：让 goldmark 原样保留 LaTeX，不被当作 Markdown 处理
+[markup.goldmark.extensions.passthrough]
+enable = true
+
+[markup.goldmark.extensions.passthrough.delimiters]
+block = [['\[', '\]'], ['$$', '$$']]
+inline = [['\(', '\)'], ['$', '$']]
+
 [menu]
   [[menu.main]]
   name = "Home"

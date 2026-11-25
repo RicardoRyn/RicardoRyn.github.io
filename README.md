@@ -85,7 +85,7 @@ rm content/posts/2026/my-post/log.ansi
 然后在该文章里引用（无需 `.htmlfrag` 后缀）：
 
 ```text
-{{</* ansi "log.ansi" */>}}
+{{< ansi "log.ansi" >}}
 ```
 
 会处理 `content/` 下的所有 `.ansi` 文件，
@@ -93,6 +93,19 @@ jj 只需追踪 `*.ansi.htmlfrag` 文件。
 
 终端颜色会映射到 Catppuccin Latte / Mocha，跟随站点深浅色切换。
 超出 16 色的颜色会取最接近的色位。
+
+## 数学公式
+
+```yaml
+---
+title: '文章标题'
+math: true
+---
+```
+
+支持的分隔符：`$...$` 是行内公式，`$$...$$` 是块级公式。
+
+正文里的美元符号（比如价格）要用 `\$` 转义，否则会被当成公式开头。
 
 ## 发布
 

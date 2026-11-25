@@ -6,4 +6,5 @@ description:
 tocOpen: false
 toc: true
 tags: []
+math: false
 ---
