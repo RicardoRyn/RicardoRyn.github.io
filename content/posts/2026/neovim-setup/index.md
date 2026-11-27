@@ -173,6 +173,9 @@ cargo binstall tree-sitter-cli # with cargo-binstall
 
 ## 项目结构
 
+<details>
+<summary> 展开看全部 </summary>
+
 ```text
 ~/.config/nvim/
 ├── init.lua                  # 入口
@@ -216,6 +219,8 @@ cargo binstall tree-sitter-cli # with cargo-binstall
 ├── lsp/                      # LSP server 定义（nvim-lspconfig 的默认值）
 └── snippets/                 # 自定义 snippets
 ```
+
+</details>
 
 ## 键位
 
@@ -472,6 +477,9 @@ Leader 是 `<Space>`，local leader 是 `\`。
 
 ### VSCode 键位
 
+<details>
+<summary> 展开看全部 </summary>
+
 ```text
 <leader>
 ├── <Space> / ff（文件）- 快速打开文件
@@ -495,6 +503,8 @@ Leader 是 `<Space>`，local leader 是 `\`。
 └── u (UI)
     └── z - 开关 zen 模式
 ```
+
+</details>
 
 **移动与导航**
 
