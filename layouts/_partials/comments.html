@@ -1,29 +1,37 @@
-<script src="https://giscus.app/client.js"
-        data-repo="RicardoRyn/RicardoRyn.github.io"
-        data-repo-id="R_kgDOV3Ln4g"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOV3Ln4s4DLx-e"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="catppuccin_latte"
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
-</script>
+<div class="giscus"
+     data-repo="RicardoRyn/RicardoRyn.github.io"
+     data-repo-id="R_kgDOV3Ln4g"
+     data-category="Announcements"
+     data-category-id="DIC_kwDOV3Ln4s4DLx-e"
+     data-mapping="pathname"
+     data-strict="0"
+     data-reactions-enabled="1"
+     data-emit-metadata="0"
+     data-input-position="bottom"
+     data-lang="zh-CN"></div>
 <script>
-    // giscus 的 data-theme 是静态的，这里让它跟随站点的浅色 / 深色切换。
-    const host = document.currentScript.parentElement;
-    const syncGiscus = () => {
-        const html = document.documentElement.classList;
-        const dark = html.contains("dark") ||
-            (!html.contains("light") && matchMedia("(prefers-color-scheme: dark)").matches);
-        host.querySelector("iframe.giscus-frame")?.contentWindow.postMessage(
-            { giscus: { setConfig: { theme: dark ? "catppuccin_mocha" : "catppuccin_latte" } } },
-            "https://giscus.app");
-    };
-    new MutationObserver(syncGiscus).observe(host, { childList: true });            // iframe 插入时
-    new MutationObserver(syncGiscus).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] }); // 切换主题时
+    (() => {
+        const host = document.currentScript.previousElementSibling;
+        const root = document.documentElement;
+        const system = matchMedia("(prefers-color-scheme: dark)");
+        const origin = "https://giscus.app";
+        const theme = () => root.classList.contains("dark") ||
+            (!root.classList.contains("light") && system.matches)
+            ? "catppuccin_mocha" : "catppuccin_latte";
+        const sync = () => {
+            host.querySelector("iframe.giscus-frame")?.contentWindow?.postMessage(
+                { giscus: { setConfig: { theme: theme() } } }, origin);
+        };
+
+        // Sync again after loading in case the theme changed while the iframe was loading.
+        host.addEventListener("load", sync, true);
+        new MutationObserver(sync).observe(root, { attributeFilter: ["class"] });
+        system.addEventListener("change", sync);
+
+        const client = document.createElement("script");
+        Object.assign(client.dataset, host.dataset, { theme: theme() });
+        client.src = `${origin}/client.js`;
+        client.crossOrigin = "anonymous";
+        host.after(client);
+    })();
 </script>
